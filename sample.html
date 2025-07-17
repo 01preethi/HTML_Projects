@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>StudentForm</title>
+    <style>
+        table, td ,th{
+            border: 2px solid black;
+            padding: 8px;
+            margin: 0 auto;
+            
+        }
+        input,select {
+            width: 120px;
+        }
+        body{
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0 ;
+        }
+        .delete-btn {
+            background-color: red;
+            color: wheat;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<center>
+    <h6 style="font-size: 30px; margin: 25px;">STUDENT FORM</h6>
+
+    <form id="studentForm" onsubmit="addstudents(event)">
+        
+        <table>
+            <tr>
+                <td><b>Name</b></td>
+                <td><input id="name" type="text" name="name" placeholder="Enter your name"></td>
+            </tr>
+            <tr>
+                <td><b>Age</b></td>
+                <td><input id="age" type="number" name="age" placeholder="Enter your age"></td>
+            </tr>
+            <tr>
+                <td><b>Gender</b></td>
+                <td>
+                    <input type="radio" name="gender" value="female">
+                    <label for="female">Female</label>
+                    <input type="radio" name="gender" value="male">
+                    <label for="male">Male</label>
+
+                </td>
+            </tr>
+            <tr>
+                <td><b>Course</b></td>
+                <td>
+                    <select id="course" name="course">
+                        <option>HTML</option>
+                        <option>CSS</option>
+                        <option>JavaScript</option>
+                        <option>Java</option>
+                        <option>SQL</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><b>E-mail</b></td>
+                <td>
+                    <input id="email" type="email" name="email" placeholder="Enter your E-mail">
+                </td>
+            </tr>
+            <tr>
+                <td 
+                colspan="2" style="text-align: center;"><button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br><br>
+
+    <table id="student-table">
+        <tr>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>COURSE</th>
+            <th>GENDER</th>
+            <th>EMAIL</th>
+            <th>ACTION</th>
+        </tr>
+    </table>
+
+    <script>
+        function addstudents(event) {
+            event.preventDefault();
+
+      let name = document.getElementById("name").value;
+      let age = document.getElementById("age").value;
+      let course = document.getElementById("course").value;
+      let email = document.getElementById("email").value;
+      let gender = document.querySelector('input[name="gender"]:checked')?.value;
+
+      if (!name || !age || !gender || !course || !email) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      let table = document.getElementById("student-table");
+      let row = table.insertRow();
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${age}</td>
+        <td>${course}</td>
+        <td>${gender}</td>
+        <td>${email}</td>
+        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+      `;
+
+      document.getElementById("studentForm").reset();
+        }
+        function deleteRow(button) {
+            let row = button.parentNode.parentNode;
+            row.remove();
+          }
+    </script>
+
+
+
+    
+
+
+</center>
+
+    
+</body>
+</html>
